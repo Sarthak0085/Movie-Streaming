@@ -17,9 +17,7 @@ const Swipper = ({ movies }: { movies: MovieProps[] }) => {
     const dispatch = useDispatch();
     const { userInfo } = useSelector((state) => state.userLogin);
 
-    const isLiked = (movie) => {
-        return IfMovieLiked(movie);
-    }
+    const isLiked = (movie) => IfMovieLiked(movie);
 
     const likeMovie = (movie) => {
         if (!userInfo) {
@@ -65,8 +63,8 @@ const Swipper = ({ movies }: { movies: MovieProps[] }) => {
                                       
                                   <button
                                       onClick={()=>likeMovie(movie)}
-                                      disabled={isLoading }
-                                      className={`bg-white ${isLiked(movie) ? "text-subMain cursor-not-allowed" : "text-white" } hover:text-subMain transitions px-4 py-3 rounded font-medium text-sm bg-opacity-30`} >
+                                      disabled={isLoading}
+                                      className={`bg-white ${isLiked(movie) ? "text-subMain" : "text-white" } hover:text-subMain transitions px-4 py-3 rounded font-medium text-sm bg-opacity-30`} >
                                       <FaHeart/>
                                   </button>
                               </div>

@@ -12,7 +12,7 @@ movieRouter.get("/rated/top", movieController.getTopRatedMovies);
 movieRouter.get("/random/all", movieController.getRandomMovies);
 
 /************* PRIVATE ROUTES **********/
-movieRouter.post("/:id/reviews", isAuthenticated, movieController.createMovieReview);
+movieRouter.post("/reviews/:id", isAuthenticated, movieController.createMovieReview);
 
 /************** ADMIN ROUTES **********/
 movieRouter.post("/", isAuthenticated, isAdmin, movieController.createMovie);

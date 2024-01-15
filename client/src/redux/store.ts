@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import * as User from "./reducers/userReducers";
 import * as Category from "./reducers/categoryReducers";
@@ -35,13 +36,24 @@ const rootReducers = combineReducers({
     casts: Movies.castsReducer,
 });
 
-const userInfoFromStorage = JSON.parse(localStorage.getItem("userInfo") || "null");
-
-const initialState = {
-    userLogin: { userInfo: userInfoFromStorage }
+type RootState = {
+    userLogin: {
+        userInfo: any; // Replace 'any' with the actual type of userInfo
+    };
+    // Add other slices...
 };
+
+// const userInfoFromStorage = JSON.parse(localStorage.getItem("userInfo") || null);
+const userInfoFromStorageRaw = localStorage.getItem("userInfo");
+const userInfoFromStorage = userInfoFromStorageRaw ? JSON.parse(userInfoFromStorageRaw) : null;
+
+// const initialState: RootState = {
+//     userLogin: { userInfo: userInfoFromStorage }
+// };
 
 export const store = configureStore({
     reducer: rootReducers,
-    preloadedState: initialState,
+    preloadedState: { userInfo: userInfoFromStorage } as RootState['userLogin'],
 })
+
+// export type RootState = ReturnType<typeof rootReducers>;

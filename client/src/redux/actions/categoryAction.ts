@@ -22,6 +22,7 @@ export const createCategoryAction = (category: string) => async (dispatch: any, 
         const response = await categoryApis.createCategoryService(category, tokenProtection(getState));
         toast.success("Category Created Successfully");
         dispatch({ type: categoryConstants.CREATE_CATEGORY_SUCCESS, action: response });
+        dispatch(getAllCategoriesAction())
     } catch (error) {
         ErrorsAction(error, dispatch, categoryConstants.CREATE_CATEGORY_FAIL);
     }
@@ -46,6 +47,7 @@ export const deleteCategoryAction = (id: string) => async (dispatch: any, getSta
         dispatch({ type: categoryConstants.DELETE_CATEGORY_REQUEST });
         const response = await categoryApis.deleteCategoryService(id, tokenProtection(getState));
         dispatch({ type: categoryConstants.DELETE_CATEGORY_SUCCESS, action: response });
+        dispatch(getAllCategoriesAction())
     } catch (error) {
         ErrorsAction(error, dispatch, categoryConstants.DELETE_CATEGORY_FAIL);
     }

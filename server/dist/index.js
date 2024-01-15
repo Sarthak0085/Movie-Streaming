@@ -4,34 +4,44 @@ import express from 'express';
 import { connectDB } from './config/db.js';
 import { ErrorMiddleware } from './middlewares/error.js';
 import router from './routes/index.js';
+import { Server } from "socket.io";
+import { createServer } from "http";
 dotenv.config();
 const app = express();
 app.use(express.json());
-app.use(cors());
+const corsOptions = {
+    origin: 'http://localhost:5173', // Replace with your frontend domain
+};
+const server = createServer(app);
+const io = new Server(server, {
+    cors: corsOptions,
+});
+app.use(cors(corsOptions));
 //connect db
 connectDB();
 // main route
 app.get("/", (req, res) => {
     res.send("running.....");
 });
-// app.get('/api/v1/download-movie', (req, res) => {
-//     const { title } = req.query;
-//     if (!title) {
-//         return res.status(400).json({ error: 'Movie title is required.' });
-//     }
-//     const movieFilePath = path.join(__dirname, 'movies', `${title}.mp4`);
-//     res.download(movieFilePath, `${title}.mp4`, (err) => {
-//         if (err) {
-//             console.error('Error downloading movie:', err);
-//             res.status(500).json({ error: 'Internal Server Error' });
-//         }
-//     });
-// });
+io.on('connection', (socket) => {
+    console.log('A user connected');
+    socket.on('join-room', (room) => {
+        socket.join(room);
+        console.log(`User joined room: ${room}`);
+    });
+    socket.on('send-message', ({ message, room, userId, image, userName }) => {
+        console.log("Message", message, "Room", room, "user", userId);
+        io.to(room).emit('receive-message', { message, userId, image, userName });
+    });
+    socket.on('disconnect', () => {
+        console.log('User disconnected');
+    });
+});
 //other routes
 app.use("/api/v1", router);
 //error handling middleware
 app.use(ErrorMiddleware);
 const PORT = process.env.PORT || 4000;
-app.listen(PORT, () => {
+server.listen(PORT, () => {
     console.log(`Server is running on the port : ${PORT}`);
 });

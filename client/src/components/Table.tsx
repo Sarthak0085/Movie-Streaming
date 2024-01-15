@@ -8,6 +8,7 @@ const Table = ({ data, admin, Icon, deleteHandler }: { data: MovieProps[]; admin
 
     const Head = "text-sm text-center text-main font-semibold px-6 py-2 uppercase";
     const Text = "text-md text-center whitespace-nowrap leading-6 px-5 py-3";
+    
 
     return (
         <div className='overflow-x-scroll overflow-hidden w-full relative'>
@@ -40,7 +41,8 @@ const Table = ({ data, admin, Icon, deleteHandler }: { data: MovieProps[]; admin
                 </thead>
                 <tbody className='bg-main divide-y divide-gray-800'>
                     {
-                       data && data.map((movie, index) => (
+                        data && data.map((movie, index) =>
+                        (                            
                             <tr key={index}>
                                 <td className={Text}>
                                     <div className='w-12 bg-dry border border-border h-12 rounded-full overflow-hidden'>
@@ -77,8 +79,9 @@ const Table = ({ data, admin, Icon, deleteHandler }: { data: MovieProps[]; admin
                                                     <Icon size={23} />
                                                 </button>
                                             </>
-                                        ) :
-                                            <>
+                                       ) : 
+                                           <>
+                                               
                                                 <button className='font-medium transitions text-white hover:text-subMain'>
                                                     <Link to={`/movie/${movie?._id}`}>
                                                         <GoEye size={22} />

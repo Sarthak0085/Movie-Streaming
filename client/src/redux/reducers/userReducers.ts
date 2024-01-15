@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { PayloadAction } from "@reduxjs/toolkit";
 import { UserInfoType } from "../../types/type";
 import * as userConstants from "../constants/userConstants";
 
@@ -10,7 +11,7 @@ interface UserState {
 }
 
 // register Reducer
-export const userRegisterReducer = (state = {}, action: userConstants.UserActionTypes): UserState => {
+export const userRegisterReducer = (state = {}, action: PayloadAction<any>) => {
     switch (action.type) {
         case userConstants.USER_REGISTER_REQUEST:
             return {
@@ -36,13 +37,15 @@ export const userRegisterReducer = (state = {}, action: userConstants.UserAction
 }
 
 // login Reducer
-export const userLoginReducer = (state = {}, action: userConstants.UserActionTypes): UserState => {
+export const userLoginReducer = (state = {}, action: PayloadAction<UserInfoType>) => {
     switch (action.type) {
         case userConstants.USER_LOGIN_REQUEST:
             return {
                 isLoading: true,
             };
         case userConstants.USER_LOGIN_SUCCESS:
+            console.log();
+
             return {
                 isLoading: false,
                 userInfo: action.payload,
@@ -72,9 +75,11 @@ export const userUpdateReducer = (state = {}, action: userConstants.UserActionTy
                 isLoading: true,
             };
         case userConstants.USER_UPDATE_PROFILE_SUCCESS:
+            console.log("updated profile", action);
+
             return {
                 isLoading: false,
-                // userInfo: action.payload,
+                userInfo: action.payload,
                 isSuccess: true,
             };
         case userConstants.USER_UPDATE_PROFILE_FAIL:

@@ -19,7 +19,7 @@ import NotFound from "./pages/NotFound"
 import Register from "./pages/Register"
 import SingleMoviePage from "./pages/SingleMovie"
 import { AdminProtectedRoute, ProtectedRoute } from "./ProtectedRoutes"
-import { useEffect } from "react"
+import { useEffect, useMemo } from "react"
 import WatchPage from "./pages/WatchPage"
 import { getAllMoviesAction } from "./redux/actions/moviesAction"
 import { getUserAllFavouritesMovieAction } from "./redux/actions/userAction"
@@ -28,6 +28,8 @@ import { getAllCategoriesAction } from "./redux/actions/categoryAction"
 import EditMovie from "./pages/Dashboard/Admin/EditMovie"
 
 function App() {
+
+  
 
   Aos.init();
   const dispatch = useDispatch();

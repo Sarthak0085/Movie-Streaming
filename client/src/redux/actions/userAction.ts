@@ -16,7 +16,7 @@ export const registerAction = (data: userRegisterData) => async (dispatch: any) 
         dispatch({ type: userConstants.USER_REGISTER_REQUEST });
         const response = await userApis.registerService(data);
         dispatch({ type: userConstants.USER_REGISTER_SUCCESS, payload: response });
-        dispatch({ type: userConstants.USER_LOGIN_SUCCESS, payload: response });
+        // dispatch({ type: userConstants.USER_LOGIN_SUCCESS, payload: response });
     } catch (error) {
         ErrorsAction(error, dispatch, userConstants.USER_REGISTER_FAIL);
     }
@@ -53,14 +53,15 @@ export const updateProfileAction = (user: any) => async (dispatch: any, getState
     }
 }
 
-//update Profile action
+//delete Profile action
 export const deleteProfileAction = () => async (dispatch: any, getState: any) => {
     try {
         dispatch({ type: userConstants.USER_DELETE_PROFILE_REQUEST });
         await userApis.deleteUserProfileService(tokenProtection(getState));
         dispatch({ type: userConstants.USER_DELETE_PROFILE_SUCCESS });
+        // toast.success("Profle deleted successfully");
         // toast.success("Profile updated Successfully");
-        // dispatch(loginAction())
+        dispatch(loginAction())
     } catch (error) {
         ErrorsAction(error, dispatch, userConstants.USER_UPDATE_PROFILE_FAIL);
     }

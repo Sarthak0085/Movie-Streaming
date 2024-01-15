@@ -45,7 +45,7 @@ export const getTopRatedMoviesReducers = (state = { movies: [] }, action: { type
             return {
                 isLoading: false,
                 isSuccess: true,
-                movies: action.payload,
+                movies: action.payload.movies,
             };
         case moviesConstants.TOP_RATED_MOVIE_LIST_FAIL:
             return {
@@ -72,7 +72,7 @@ export const getRandomMoviesReducers = (state = { movies: [] }, action: { type: 
             return {
                 isLoading: false,
                 isSuccess: true,
-                movies: action.payload,
+                movies: action.payload.movies,
             };
         case moviesConstants.GET_RANDOM_MOVIE_LIST_FAIL:
             return {

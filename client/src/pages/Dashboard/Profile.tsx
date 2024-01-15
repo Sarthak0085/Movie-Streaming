@@ -49,7 +49,10 @@ const Profile = () => {
 
     const deleteProfile = () => {
         console.log("delete");
-        dispatch(deleteProfileAction());
+        if (window.confirm("Are you sure you want to delete this profile?")) {
+            dispatch(deleteProfileAction());
+            // navigate("/login")
+        }
     }
 
     useEffect(() => {
@@ -65,14 +68,14 @@ const Profile = () => {
         if (isSuccess) {
             console.log(isSuccess);
             console.log(userInfo?.user?.userName);
-            
+
             toast.success(`User ${userInfo?.user?.userName} updated successfully`);
             dispatch({ type: "USER_UPDATE_PROFILE_RESET" });
         }
         if (DeleteSuccess) {
+            navigate("/login");
             toast.success("Profile deleted successfully");
             dispatch({ type: "USER_DELETE_PROFILE_RESET" });
-            navigate("/login");
         }
         if (DeleteError || isError) {
             console.log(DeleteError);
@@ -164,7 +167,7 @@ const Profile = () => {
                   </div>
               <div className="flex gap-2 flex-wrap flex-col-reverse sm:flex-row justify-between items-center my-4">
                   <button
-                      onClick={()=>setOpen(true)}
+                      onClick={deleteProfile}
                       disabled={DeleteLoading || DeleteError}
                       className={`bg-subMain hover:bg-main text-white transitions border border-subMain w-full py-3 px-6 sm:w-auto ${DeleteLoading && "cursor-not-allowed"}`}>
                       Delete Account

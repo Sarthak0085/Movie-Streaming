@@ -84,7 +84,7 @@ export const updateUserProfile = catchAsyncError(async (req, res, next) => {
             //s
             res.status(201).json({
                 success: true,
-                updatedUser,
+                user: updatedUser,
                 token: generateToken(updatedUser),
             });
         }

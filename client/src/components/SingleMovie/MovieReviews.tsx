@@ -63,10 +63,12 @@ const MovieReviews = ({movie}:{movie:MovieProps}) => {
     })
 
     const onSubmit = (data) => {
-        dispatch(createReviewAction({ id: movie?._id, review:{...data} }));
+        console.log(data);
+        
+        dispatch(createReviewAction(movie?._id,data ));
     }
 
-    console.log(!!userInfo);
+    // console.log(!!userInfo);
     
 
   return (
@@ -104,15 +106,15 @@ const MovieReviews = ({movie}:{movie:MovieProps}) => {
                           {
                              errors.comment && <InlineError text={errors.comment.message} />    
                           }
-                          <button
+                          {/* <button
                                       type="submit"
                                       disabled={isLoading}
                                       className={`bg-subMain w-full px-3 py-3 my-2 rounded-lg text-white ${isLoading && "cursor-not-allowed"}`}
                                   >
                                       {isLoading ? "Loading..." : "submit"}
-                          </button>
+                          </button> */}
                           
-                          {/* {userInfo.user ?
+                          {userInfo?.user ?
                               (
                                   (<button
                                       type="submit"
@@ -130,7 +132,7 @@ const MovieReviews = ({movie}:{movie:MovieProps}) => {
                                       Login to review
                                   </Link>
                               )
-                          } */}
+                          }
                       </div>
                   </div>   
               </form>

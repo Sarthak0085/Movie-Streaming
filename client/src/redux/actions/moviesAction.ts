@@ -80,13 +80,15 @@ export const getMovieById = (id: string) => async (dispatch: any) => {
 }
 
 //create Review action    
-export const createReviewAction = ({ id, review }: { id: string, review: any }) => async (dispatch: any, getstate: any) => {
+export const createReviewAction = (id, review) => async (dispatch: any, getstate: any) => {
     try {
         dispatch({ type: moviesConstants.CREATE_REVIEW_REQUEST });
-        const response = await moviesApis.reviewToMovie(id, review, tokenProtection(getstate));
+        const response = await moviesApis.reviewToMovie(tokenProtection(getstate), id, review);
+        console.log(response);
+
         dispatch({ type: moviesConstants.CREATE_REVIEW_SUCCESS, payload: response });
         toast.success("Review created successfully");
-        dispatch({ type: moviesConstants.CREATE_REVIEW_RESET });
+        // dispatch({ type: moviesConstants.CREATE_REVIEW_RESET });
         dispatch(getMovieById(id));
     } catch (error) {
         ErrorsAction(error, dispatch, moviesConstants.CREATE_REVIEW_FAIL);

@@ -17,13 +17,15 @@ const Favourites = () => {
     const { isLoading, isError, likedMovies } = useSelector((state) => state.getUserAllFavouritesMovie);
     const { isLoading: deleteLoading, isError: deleteError } = useSelector((state) => state.getUserAllFavouritesMovie);
 
-    const likeMovie = (movieId) => {
+    const likeMovie = (id: string) => {
+        console.log("movieId :"+id);
+        
         if (!userInfo) {
             toast.error("Please login to add into your favourites");
         } else {
-            console.log("movieId"+movie?._id);
+            // console.log("movieId"+movie?._id);
             
-            dispatch(likeMovieAction({ movieId: movieId }))
+            dispatch(likeMovieAction({movieId: id}))
         
         }
     }
@@ -41,7 +43,7 @@ const Favourites = () => {
             toast.error(isError || deleteError);
             dispatch({ type: isError ? "GET_USER_FAVOURITE_MOVIE_RESET" : "DELETE_USER_ALL_FAVOURITE_MOVIE_RESET" });
         }
-    },[isError, deleteError, dispatch])
+    },[dispatch])
 
   return (
      <Sidebar>
@@ -49,7 +51,7 @@ const Favourites = () => {
               <div className="flex-btn gap-2">
                   <h2 className="text-xl font-bold">Favourite Movies</h2>
                   {
-                      likedMovies && likedMovies.length > 0 &&
+                      likedMovies && likedMovies?.length > 0 &&
                       <button
                       onClick={deleteAllFavouriteHandler}
                       disabled={deleteLoading}
@@ -63,7 +65,7 @@ const Favourites = () => {
                       (
                           <Loader/>
                       )
-                      : likedMovies && likedMovies.length > 0
+                      : likedMovies && likedMovies?.length > 0
                           ? (
               <Table data={likedMovies} admin={false} Icon={IoIosRemoveCircle} deleteHandler={likeMovie} />           
                           )

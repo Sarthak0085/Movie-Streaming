@@ -20,7 +20,7 @@ export const likeMovie = (dispatch, movie, userInfo) => {
 export const DownloadVideo = async (videoUrl: string, setProgress: (arg0: number) => void) => {
     try {
         console.log(videoUrl);
-        const { data } = await Axios({
+        const { data } = await axios({
             url: videoUrl,
             method: 'GET',
             responseType: 'blob',

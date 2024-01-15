@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Dispatch } from "@reduxjs/toolkit";
 import { logoutAction } from "./actions/userAction";
+import { RootState } from "./store";
 
 // type ActionPayload = {
 //     type: string;
@@ -17,10 +19,11 @@ export const ErrorsAction: ErrorsActionType = (error, dispatch, action) => {
     return dispatch({ type: action, payload: message });
 }
 
-export const tokenProtection = (getState) => {
+export const tokenProtection = (getState: () => RootState) => {
     console.log("hello");
 
-    const { userLogin: { userInfo } } = getState();
+    const { userLogin } = getState() as RootState;
+    const userInfo = userLogin.userInfo;
     if (!userInfo.token) {
         console.log("bye");
 

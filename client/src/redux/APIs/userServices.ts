@@ -30,7 +30,7 @@ export const logoutService = async () => {
 }
 
 // update profile service
-export const updateProfileService = async (user: userLoginData, token: string) => {
+export const updateProfileService = async (user, token: string) => {
     const { data } = await Axios.put("/users/", user, {
         headers: {
             Authorization: `Bearer ${token}`
@@ -39,6 +39,7 @@ export const updateProfileService = async (user: userLoginData, token: string) =
 
     if (data) {
         localStorage.setItem("userInfo", JSON.stringify(data));
+        console.log('User info updated in localStorage:', localStorage.getItem("userInfo"));
     }
 
     return data;
@@ -46,7 +47,7 @@ export const updateProfileService = async (user: userLoginData, token: string) =
 
 // delete profile service
 export const deleteUserProfileService = async (token: string) => {
-    const { data } = await Axios.delete("/users/", {
+    const { data } = await Axios.delete("/users", {
         headers: {
             Authorization: `Bearer ${token}`
         }

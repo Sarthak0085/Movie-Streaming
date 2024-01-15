@@ -99,7 +99,7 @@ export const updateUserProfile = catchAsyncError(async (req: Request, res: Respo
             //s
             res.status(201).json({
                 success: true,
-                updatedUser,
+                user: updatedUser,
                 token: generateToken(updatedUser),
             });
         } else {

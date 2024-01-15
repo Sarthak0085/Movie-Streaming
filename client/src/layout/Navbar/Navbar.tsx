@@ -24,7 +24,7 @@ const Navbar = () => {
     }
   }
 
-  console.log("Hello :"+userInfo?.user.likedMovies);
+  console.log("Hello :"+userInfo?.user?.likedMovies);
   
 
   return (
@@ -65,7 +65,7 @@ const Navbar = () => {
             <FiHeart className="w-6 h-6" />
             <div className='absolute w-5 h-5 flex-column rounded-full text-sm bg-subMain -top-3 text-white -right-3'>
               {
-                likedMovies? likedMovies?.length : 0
+                likedMovies ? likedMovies.length : 0
               }
             </div>
           </NavLink>

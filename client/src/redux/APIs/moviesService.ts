@@ -33,7 +33,7 @@ export const getMovieByIdService = async (id: string) => {
 
 // get top rated movies service
 export const getTopRatedMoviesService = async () => {
-    const { data } = await Axios.get(`/movies/top/rated`);
+    const { data } = await Axios.get(`/movies/rated/top`);
     return data;
 }
 
@@ -44,8 +44,8 @@ export const getRandomMoviesService = async () => {
 }
 
 // get review on movie
-export const reviewToMovie = async (id: string, token: string, review) => {
-    const { data } = await Axios.post(`/movies/${id}/reviews`, review, {
+export const reviewToMovie = async (token: string, id: string, review) => {
+    const { data } = await Axios.post(`/movies/reviews/${id}`, review, {
         headers: {
             Authorization: `Bearer ${token}`
         }
